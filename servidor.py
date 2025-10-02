@@ -27,7 +27,6 @@ async def endpoint_monitor_ask():
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error procesando mensaje: {str(e)}")
 
-
 @app.get("/monitor_send/{mensaje}")
 async def endpoint_monitor_send(mensaje:str):
     """
@@ -37,7 +36,7 @@ async def endpoint_monitor_send(mensaje:str):
     try:
         global_data["content"]=mensaje
         global_data["last_date"]=datetime.now().strftime("%d-%m-%Y | %H:%M:%S")
-
+        asking_state["state"]=False
         return {
             "status": "success",
             "message": global_data["content"],
@@ -46,7 +45,6 @@ async def endpoint_monitor_send(mensaje:str):
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error procesando mensaje: {str(e)}")
-
 
 @app.get("/consultor_request")
 async def endpoint_consultor_request():
